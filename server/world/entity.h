@@ -1,0 +1,4 @@
+#ifndef MINECRAFT_ENTITY_H
+#define MINECRAFT_ENTITY_H
+
+#endif

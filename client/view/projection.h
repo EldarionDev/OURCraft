@@ -1,0 +1,4 @@
+#ifndef MINECRAFT_PROJECTION_H
+#define MINECRAFT_PROJECTION_H
+
+#endif

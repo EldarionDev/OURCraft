@@ -1,0 +1,4 @@
+#ifndef MINECRAFT_CLIENT_H
+#define MINECRAFT_CLIENT_H
+
+#endif

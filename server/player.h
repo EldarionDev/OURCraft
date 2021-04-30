@@ -1,0 +1,4 @@
+#ifndef MINECRAFT_PLAYER_H
+#define MINECRAFT_PLAYER_H
+
+#endif

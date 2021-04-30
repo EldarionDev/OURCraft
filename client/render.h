@@ -1,0 +1,4 @@
+#ifndef MINECRAFT_RENDER_H
+#define MINECRAFT_RENDER_H
+
+#endif

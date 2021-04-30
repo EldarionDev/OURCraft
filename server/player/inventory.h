@@ -1,0 +1,4 @@
+#ifndef MINECRAFT_INVENTORY_H
+#define MINECRAFT_INVENTORY_H
+
+#endif
