@@ -4,6 +4,8 @@
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/ext/matrix_transform.hpp>
 
 int main() {
     std::cout << "Hello, World!" << std::endl;
@@ -12,6 +14,7 @@ int main() {
         std::cout << "GLFW initialization failed." << std::endl;
     }
 
+    glm::mat4 matrix = glm::mat4();
     GLFWwindow* window = glfwCreateWindow(1920, 1080, "Minecraft", NULL, NULL);
     glfwMakeContextCurrent(window);
 
