@@ -3,7 +3,7 @@ project(Minecraft)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(Minecraft main.cpp server.cpp server/world.cpp server/player.cpp server/world/entity.cpp server/world/chunk.cpp server/player/inventory.cpp client.cpp client/render.cpp client/render/block.cpp client/render/model.cpp client/input.cpp client/render/gui.cpp client/render/asset_loaders/texture.cpp client/render/asset_loaders/shader.cpp client/render/font.cpp client/render/asset_loaders/model.cpp client/view/camera.cpp client/view/projection.cpp client/render/asset_loaders.cpp client/view.cpp)
+add_executable(Minecraft main.cpp server.cpp server/world.cpp server/player.cpp server/world/entity.cpp server/world/chunk.cpp server/player/inventory.cpp client.cpp client/render.cpp client/render/block.cpp client/render/model.cpp client/input.cpp client/render/gui.cpp client/render/asset_loaders/texture.cpp client/render/asset_loaders/shader.cpp client/render/asset_loaders/model.cpp client/view/camera.cpp client/view/projection.cpp client/render/asset_loaders.cpp client/view.cpp)
 
 # Requires glew32.dll and glfw3.dll in dlls/
 add_custom_command(TARGET Minecraft POST_BUILD
