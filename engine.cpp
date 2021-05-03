@@ -5,10 +5,10 @@ std::map<std::string, EnvironmentObject> registered_environments;
 std::map<std::string, GuiObject> registered_guis;
 std::map<std::string, ModelObject> registered_objects;
 
-std::list<Gui*> gui_render_list;
-std::list<Block*> block_render_list;
-std::list<Object*> object_render_list;
-std::list<Environment*> environment_render_list;
+std::list<GuiInstance*> gui_render_list;
+std::list<BlockInstance*> block_render_list;
+std::list<ObjectInstance*> object_render_list;
+std::list<EnvironmentInstance*> environment_render_list;
 
 GLFWwindow* game_window;
 
@@ -56,36 +56,36 @@ void Engine::register_environment(std::string name) {
     registered_environments.insert(std::make_pair(name, EnvironmentObject()));
 }
 
-void Engine::add_render_gui (Gui *gui) {
-    gui_render_list.push_back(gui);
+void Engine::add_render_gui (GuiInstance *GuiInstance) {
+    GuiInstance_render_list.push_back(GuiInstance);
 }
 
-void Engine::add_render_block (Block *block) {
-    block_render_list.push_back(block);
+void Engine::add_render_block (BlockInstance *BlockInstance) {
+    block_render_list.push_back(BlockInstance);
 }
 
-void Engine::add_render_object (Object *object) {
-    object_render_list.push_back(object);
+void Engine::add_render_object (ObjectInstance *ObjectInstance) {
+    object_render_list.push_back(ObjectInstance);
 }
 
-void Engine::add_render_environment (Environment *environment) {
-    environment_render_list.push_back(environment);
+void Engine::add_render_environment (EnvironmentInstance *EnvironmentInstance) {
+    environment_render_list.push_back(EnvironmentInstance);
 }
 
-void Engine::remove_render_gui (Gui *gui) {
-    gui_render_list.remove(gui);
+void Engine::remove_render_gui (GuiInstance *GuiInstance) {
+    gui_render_list.remove(GuiInstance);
 }
 
-void Engine::remove_render_block (Block *block) {
-    block_render_list.remove(block);
+void Engine::remove_render_block (BlockInstance *BlockInstance) {
+    block_render_list.remove(BlockInstance);
 }
 
-void Engine::remove_render_object (Object *object) {
-    object_render_list.remove(object);
+void Engine::remove_render_object (ObjectInstance *ObjectInstance) {
+    object_render_list.remove(ObjectInstance);
 }
 
-void Engine::remove_render_environment (Environment *environment) {
-    environment_render_list.remove(environment);
+void Engine::remove_render_environment (EnvironmentInstance *EnvironmentInstance) {
+    environment_render_list.remove(EnvironmentInstance);
 }
 
 void Engine::update() {
@@ -107,66 +107,66 @@ void Engine::update() {
     glfwPollEvents();
 }
 
-Gui::Gui(std::string gui_name) {
-    this->gui = &registered_guis.find(gui_name)->second;
+GuiInstance::GuiInstance(std::string GuiInstance_name) {
+    this->gui = &registered_guis.find(GuiInstance_name)->second;
 }
 
-void Gui::render() {
+void GuiInstance::render() {
 
 }
 
-Object::Object(std::string object_name, float pos_x, float pos_y, float pos_z) {
+ObjectInstance::ObjectInstance(std::string ObjectInstance_name, float pos_x, float pos_y, float pos_z) {
     this->transform(pos_x, pos_y, pos_z);
     this->calc_model_matrix();
-    this->object = &registered_objects.find(object_name)->second;
+    this->object = &registered_objects.find(ObjectInstance_name)->second;
     this->update = false;
     this->scaling = glm::vec3(1.0f);
     this->rotation = glm::vec4(1.0f, 1.0f, 1.0f, 360.0f);
 }
 
-void Object::transform(float pos_x, float pos_y, float pos_z) {
+void ObjectInstance::transform(float pos_x, float pos_y, float pos_z) {
     this->position = glm::vec3(pos_x, pos_y, pos_z);
     this->update = true;
 }
 
-void Object::scale(float scale_x, float scale_y, float scale_z) {
+void ObjectInstance::scale(float scale_x, float scale_y, float scale_z) {
     this->position = glm::vec3(scale_x, scale_y, scale_z);
     this->update = true;
 }
 
-void Object::rotate(float rot_x, float rot_y, float rot_z, float rot_degrees) {
+void ObjectInstance::rotate(float rot_x, float rot_y, float rot_z, float rot_degrees) {
     this->rotation = glm::vec4(rot_x, rot_y, rot_z, rot_degrees);
     this->update = true;
 }
 
-void Object::calc_model_matrix() {
+void ObjectInstance::calc_model_matrix() {
     this->model_matrix = glm::mat4(1.0f);
     this->model_matrix = glm::translate(this->model_matrix, this->position);
     this->model_matrix = glm::rotate(this->model_matrix, this->rotation.w, glm::vec3(this->rotation.x, this->rotation.y, this->rotation.z));
     this->model_matrix = glm::scale(this->model_matrix, this->scaling);
 }
 
-void Object::render() {
+void ObjectInstance::render() {
     if (this->update) {
         this->calc_model_matrix();
         this->update = false;
     }
 }
 
-Block::Block(std::string block_name, float pos_x, float pos_y, float pos_z) {
-    this->block = &registered_blocks.find(block_name)->second;
+BlockInstance::BlockInstance(std::string BlockInstance_name, float pos_x, float pos_y, float pos_z) {
+    this->block = &registered_blocks.find(BlockInstance_name)->second;
     this->model_matrix = glm::mat4(1.0f);
     this->model_matrix = glm::translate(this->model_matrix, glm::vec3(pos_x, pos_y, pos_z));
 }
 
-void Block::render() {
+void BlockInstance::render() {
 
 }
 
-Environment::Environment(std::string environment_name) {
-    this->environment = &registered_environments.find(environment_name)->second;
+EnvironmentInstance::EnvironmentInstance(std::string EnvironmentInstance_name) {
+    this->environment = &registered_environments.find(EnvironmentInstance_name)->second;
 }
 
-void Environment::render() {
+void EnvironmentInstance::render() {
 
 }

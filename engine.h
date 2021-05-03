@@ -17,26 +17,26 @@
 #include "engine/input.h"
 
 /* Classes the game may construct */
-class Gui {
+class GuiInstance {
 public:
-    Gui(std::string gui_name);
+    GuiInstance(std::string gui_name);
     void render ();
 private:
     GuiObject* gui;
 };
 
-class Block {
+class BlockInstance {
 public:
-    Block (std::string block_name, float pos_x, float pos_y, float pos_z);
+    BlockInstance (std::string block_name, float pos_x, float pos_y, float pos_z);
     void render ();
 private:
     BlockObject* block;
     glm::mat4 model_matrix;
 };
 
-class Object {
+class ObjectInstance {
 public:
-    Object (std::string object_name, float pos_x, float pos_y, float pos_z);
+    ObjectInstance (std::string object_name, float pos_x, float pos_y, float pos_z);
     void transform (float pos_x, float pos_y, float pos_z);
     void rotate (float rot_x, float rot_y, float rot_z, float rot_degrees);
     void scale  (float scale_x, float scale_y, float scale_z);
@@ -51,10 +51,10 @@ private:
     glm::mat4 model_matrix;
 };
 
-class Environment {
+class EnvironmentInstance {
 public:
-    Environment(std::string environment_name);
-    void render();
+    EnvironmentInstance (std::string environment_name);
+    void render ();
 private:
     EnvironmentObject* environment;
 };
@@ -70,16 +70,16 @@ namespace Engine {
     void register_environment (std::string name);
 
     /* Add objects to the render list, added by the game */
-    void add_render_gui (Gui* gui);
-    void add_render_block (Block* block);
-    void add_render_object (Object* object);
-    void add_render_environment (Environment* environment);
+    void add_render_gui (GuiInstance* gui);
+    void add_render_block (BlockInstance* block);
+    void add_render_object (ObjectInstance* object);
+    void add_render_environment (EnvironmentInstance* environment);
 
     /* Remove objects from the render list, removed by the game */
-    void remove_render_gui (Gui* gui);
-    void remove_render_block (Block* block);
-    void remove_render_object (Object* object);
-    void remove_render_environment (Environment* environment);
+    void remove_render_gui (GuiInstance* gui);
+    void remove_render_block (BlockInstance* block);
+    void remove_render_object (ObjectInstance* object);
+    void remove_render_environment (EnvironmentInstance* environment);
 
     void update ();
 }
