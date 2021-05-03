@@ -10,8 +10,33 @@ std::list<Block*> block_render_list;
 std::list<Object*> object_render_list;
 std::list<Environment*> environment_render_list;
 
-void Engine::init_engine(std::string asset_path) {
+GLFWwindow* game_window;
 
+/*Later load all the assets */
+void Engine::init_engine(std::string asset_path) {
+    if (!glfwInit()) {
+        std::cout << "Failed to initialize GLFW" << std::endl;
+    }
+
+    GLFWmonitor*  monitor   =   glfwGetPrimaryMonitor();
+    const GLFWvidmode*  mode    =   glfwGetVideoMode(monitor);
+
+    glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+    glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+    glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+    glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+    game_window = glfwCreateWindow(mode->width, mode->height, "Minecraft", monitor, NULL);
+    glfwMakeContextCurrent(game_window);
+
+    glewExperimental = true;
+    GLenum err = glewInit();
+
+    if (err != GLEW_OK) {
+        std::cout << "Failed to initialize GLEW" << std::endl;
+    }
+
+    InputHandler::initInput(game_window);
 }
 
 /* Later pass shaders, textures, ... */
@@ -76,6 +101,10 @@ void Engine::update() {
     for (auto e = gui_render_list.begin(); e != gui_render_list.end(); e++) {
         (*e)->render();
     }
+
+
+    glfwSwapBuffers(game_window);
+    glfwPollEvents();
 }
 
 Gui::Gui(std::string gui_name) {

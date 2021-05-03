@@ -6,11 +6,15 @@
 #include <list>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include <iostream>
 
 #include "engine/objects/block_object.h"
 #include "engine/objects/environment_object.h"
 #include "engine/objects/gui_object.h"
 #include "engine/objects/model_object.h"
+#include "engine/input.h"
 
 /* Classes the game may construct */
 class Gui {
