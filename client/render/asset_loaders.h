@@ -1,4 +1,0 @@
-#ifndef MINECRAFT_ASSET_LOADERS_H
-#define MINECRAFT_ASSET_LOADERS_H
-
-#endif
